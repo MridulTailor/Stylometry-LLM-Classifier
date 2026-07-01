@@ -12,6 +12,8 @@ The path a submission takes from input to transparency label:
 6. **Response:** The system returns the classification result and the transparency label to the client.
 7. **Appeals:** If contested, the creator submits an appeal via `POST /appeal`. The system updates the DB status to `under_review` and logs the creator's reasoning for manual review.
 
+![architecture](./architecture.png)
+
 ## Detection Signals
 The detection pipeline uses at least 2 distinct signals to classify content:
 

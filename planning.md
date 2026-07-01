@@ -46,24 +46,7 @@ A confidence score of `0.6` means the system detects some AI-like patterns, but 
 **Narrative:** 
 When a submission is made (`POST /submit`), the text passes independently through the Groq signal and the Stylometric signal. Both scores are averaged to produce a confidence score, which maps to one of three transparency labels. The decision is written to an SQLite Audit Log, and the result is returned to the client. If a creator contests the label (`POST /appeal`), they submit their reasoning along with the `content_id`. The database updates the content status to `under_review` and logs the appeal, preparing it for human review.
 
-```text
-       [POST /submit]
-             |
-             v
-     +-------+-------+
-     |               |
-[Signal 1: Groq] [Signal 2: Stylometrics]
-     |               |
-     +-------+-------+
-             v
-     [Confidence Scoring]
-             |
-             v
-    [Transparency Label] ----> [Audit Log (SQLite)]
-             |
-             v
-         [Response]
-```
+![architecture](./architecture.png)
 
 ## AI Tool Plan
 - **M3 (submission endpoint + first signal):** I will use the *Detection Signals* and *Architecture diagram* sections to generate the Flask app skeleton, SQLite setup, and the `analyze_with_groq` function. I will test Groq independently, then wire it into `/submit` and `/log`.

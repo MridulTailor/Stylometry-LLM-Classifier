@@ -2,12 +2,10 @@ import os
 import re
 import math
 from groq import Groq
-from dotenv import load_dotenv
-
-load_dotenv()
+from config import Config
 
 # Initialize Groq client
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client = Groq(api_key=Config.GROQ_API_KEY)
 
 def analyze_with_groq(text: str) -> float:
     """
@@ -38,7 +36,7 @@ def analyze_with_groq(text: str) -> float:
                     "content": prompt,
                 }
             ],
-            model="llama-3.3-70b-versatile",
+            model=Config.GROQ_MODEL,
             temperature=0.0,
         )
         

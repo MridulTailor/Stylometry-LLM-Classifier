@@ -2,8 +2,9 @@ import sqlite3
 import json
 from datetime import datetime
 import uuid
+from config import Config
 
-DB_PATH = "provenance.db"
+DB_PATH = Config.DB_PATH
 
 def init_db():
     with sqlite3.connect(DB_PATH) as conn:

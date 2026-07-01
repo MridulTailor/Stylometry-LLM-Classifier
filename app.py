@@ -5,6 +5,7 @@ from flask_limiter.util import get_remote_address
 
 from database import init_db, log_submission, update_appeal, get_recent_logs
 from signals import analyze_with_groq, analyze_with_stylometrics, calculate_confidence
+from config import Config
 
 app = Flask(__name__)
 
@@ -36,7 +37,7 @@ def get_attribution(confidence: float) -> str:
         return "likely_ai"
 
 @app.route("/submit", methods=["POST"])
-@limiter.limit("10 per minute;100 per day")
+@limiter.limit(Config.RATE_LIMIT)
 def submit():
     data = request.get_json()
     if not data or "text" not in data or "creator_id" not in data:
